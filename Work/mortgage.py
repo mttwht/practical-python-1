@@ -17,7 +17,7 @@ total_paid = 0.0
 month = 0
 
 
-print("month", "total paid", "remaining principal", sep='\t')
+print("month", "total paid", "remaining principal", sep="  ")
 
 while principal > 0:
     month += 1
@@ -35,7 +35,7 @@ while principal > 0:
         principal = 0
 	
     total_paid = total_paid + monthly_payment
-    print(month, round(total_paid, 2), round(principal, 2), sep='\t')
+    print(f"{month:5}  {total_paid:10.2f}  {principal:9.2f}")
 
 print()
 print("Total paid", round(total_paid, 2), "over", month, "months")
