@@ -22,9 +22,18 @@ print("month", "total paid", "remaining principal", sep='\t')
 while principal > 0:
     month += 1
     monthly_payment = payment
+    
+    # account for extra payments
     if month >= extra_payment_start_month and month <= extra_payment_end_month:
         monthly_payment += extra_payment
+    
     principal = principal * (1 + rate / 12) - monthly_payment
+
+    # account for overpayments in final month
+    if principal < 0:
+        monthly_payment += principal
+        principal = 0
+	
     total_paid = total_paid + monthly_payment
     print(month, round(total_paid, 2), round(principal, 2), sep='\t')
 
