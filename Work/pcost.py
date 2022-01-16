@@ -2,13 +2,15 @@
 #
 # Exercise 1.27
 
+import csv
+
 def portfolio_cost(filename):
     'Calculate the total cost of the portfolio'
     with open(filename, 'rt') as f:
-        headers = next(f).split(',')
+        rows = csv.reader(f)
+        headers = next(rows)
         total_price = 0
-        for line in f:
-            row = line.split(',')
+        for row in rows:
             try:
                 name = row[0]
                 shares = int(row[1])
