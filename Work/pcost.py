@@ -9,10 +9,13 @@ def portfolio_cost(filename):
         total_price = 0
         for line in f:
             row = line.split(',')
-            name = row[0]
-            shares = int(row[1])
-            price = float(row[2])
-            total_price += shares * price
+            try:
+                name = row[0]
+                shares = int(row[1])
+                price = float(row[2])
+                total_price += shares * price
+            except ValueError:
+                print("Could not convert values", row, "to [str, int, float]")
             
     return total_price
 
