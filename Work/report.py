@@ -16,7 +16,11 @@ def read_portfolio(filename):
                 name = row[0]
                 shares = int(row[1])
                 price = float(row[2])
-                holding = (name, shares, price)
+                holding = {
+                    'name': name,
+                    'shares': shares,
+                    'price': price
+				}
                 portfolio.append(holding)
             except ValueError:
                 print("Could not convert values", row, "to [str, int, float]")
