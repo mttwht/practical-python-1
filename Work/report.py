@@ -28,6 +28,20 @@ def read_portfolio(filename):
     return portfolio
 
 
+def read_prices(filename):
+    'Read stock prices from a file into a dictionary'
+    with open(filename, 'rt') as f:
+        rows = csv.reader(f)
+        stonks = {}
+        for row in rows:
+            try:
+                name, price = row[0], float(row[1])
+                stonks[name] = price
+            except IndexError:
+                print("Not enough values in line:", row)
+    return stonks
+
+
 if len(sys.argv) == 2:
     filename = sys.argv[1]
 else:
