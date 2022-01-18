@@ -42,6 +42,17 @@ def read_prices(filename):
     return stocks
 
 
+def make_report(portfolio, prices):
+    report = []
+    for holding in portfolio:
+        report.append((
+            holding['name'],
+            holding['shares'],
+            holding['price'],
+            prices[holding['name']] - holding['price']
+        ))
+    return report
+
 
 if len(sys.argv) == 3:
     filename1, filename2 = sys.argv[1], sys.argv[2]
@@ -50,6 +61,10 @@ else:
 
 portfolio = read_portfolio(filename1)
 prices = read_prices(filename2)
+report = make_report(portfolio, prices)
+
+for r in report:
+    print(r)
 
 initial_cost = current_cost = 0.0
 
@@ -57,7 +72,7 @@ for holding in portfolio:
     initial_cost += holding['shares'] * holding['price']
     current_cost += holding['shares'] * prices[holding['name']]
 
-print('Purchase price:', initial_cost)
-print('Current value:', current_cost)
+# print('Purchase price:', initial_cost)
+# print('Current value:', current_cost)
 
-print('Gain of', current_cost - initial_cost)
+# print('Gain of', current_cost - initial_cost)
