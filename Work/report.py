@@ -63,8 +63,10 @@ portfolio = read_portfolio(filename1)
 prices = read_prices(filename2)
 report = make_report(portfolio, prices)
 
-for r in report:
-    print(r)
+# for r in report:
+#     print('%10s %10d %10.2f %10.2f' % r)
+for name,shares,price,change in report:
+    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
 
 initial_cost = current_cost = 0.0
 
