@@ -43,6 +43,7 @@ def read_prices(filename):
 
 
 def make_report(portfolio, prices):
+    'Produce a report from a portfolio and current stock prices'
     report = []
     for holding in portfolio:
         report.append((
@@ -70,7 +71,8 @@ print(('-' * 10 + ' ') * len(headers))
 # for r in report:
 #     print('%10s %10d %10.2f %10.2f' % r)
 for name,shares,price,change in report:
-    print(f'{name:>10s} {shares:>10d} {price:>10.2f} {change:>10.2f}')
+    price = f'${price:0.2f}'
+    print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
 
 initial_cost = current_cost = 0.0
 
