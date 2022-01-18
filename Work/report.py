@@ -65,8 +65,7 @@ report = make_report(portfolio, prices)
 
 headers = ('Name', 'Shares', 'Price', 'Change')
 print('%10s %10s %10s %10s' % headers)
-# Theres a better way to do this for sure
-print('-'*10, '-'*10, '-'*10, '-'*10)
+print(('-' * 10 + ' ') * len(headers))
 
 # for r in report:
 #     print('%10s %10d %10.2f %10.2f' % r)
