@@ -9,16 +9,16 @@ def portfolio_cost(filename):
     'Calculate the total cost of the portfolio'
     with open(filename, 'rt') as f:
         rows = csv.reader(f)
-        headers = next(rows)
         total_price = 0
-        for row in rows:
+        headers = next(rows)
+        for row_number, row in enumerate(rows, start=1):
             try:
                 name = row[0]
                 shares = int(row[1])
                 price = float(row[2])
                 total_price += shares * price
             except ValueError:
-                print("Could not convert values", row, "to [str, int, float]")
+                print(f"Error at row {row_number}; Could not convert values [{row}] to [str, int, float]")
             
     return total_price
 
