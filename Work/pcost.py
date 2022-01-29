@@ -5,22 +5,18 @@
 import csv
 import sys
 
+from report import read_portfolio
+
 def portfolio_cost(filename):
-    'Calculate the total cost of the portfolio'
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        total_price = 0
-        headers = next(rows)
-        for row_number, row in enumerate(rows, start=1):
-            record = dict(zip(headers, row))
-            try:
-                name = record['name']
-                shares = int(record['shares'])
-                price = float(record['price'])
-                total_price += shares * price
-            except ValueError:
-                print(f"Error at row {row_number}; Could not convert values [{row}] to [str, int, float]")
+    '''
+    Calculate the total cost of the portfolio
+    '''
+    portfolio = read_portfolio(filename)
+    total_price = 0
+    for holding in portfolio:
+        total_price += holding['shares'] * holding['price']
     return total_price
+
 
 if len(sys.argv) == 2:
     filename = sys.argv[1]
