@@ -8,16 +8,6 @@ import sys
 from fileparse import parse_csv
 
 
-def get_filenames():
-    '''
-    Gets the filenames from arguments if provided, else uses defaults
-    '''
-    if len(sys.argv) == 3:
-        filename1, filename2 = sys.argv[1], sys.argv[2]
-    else:
-        filename1, filename2 = 'Data/portfolio.csv', 'Data/prices.csv'
-    return filename1, filename2
-
 def read_portfolio(filename):
     '''
     Read a stock portfolio from a file
@@ -70,6 +60,5 @@ def portfolio_report(filename1, filename2):
     report = make_report(portfolio, prices)
     print_report(report)
 
-
-filename1, filename2 = get_filenames()
-portfolio_report(filename1, filename2)
+def main(argv):
+    portfolio_report(argv[1], argv[2])
