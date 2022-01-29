@@ -4,7 +4,7 @@
 
 import csv
 
-def parse_csv(filename, select=[], types=[], has_headers=True, delimiter=','):
+def parse_csv(filename, select=[], types=[], has_headers=True, delimiter=',', silence_errors=False):
     '''
     Parse a CSV file into a list of records
     '''
@@ -35,8 +35,9 @@ def parse_csv(filename, select=[], types=[], has_headers=True, delimiter=','):
                 try:
                     row = [func(val) for func, val in zip(types, row)]
                 except ValueError as e:
-                    print(f'Row {row_no}: Couldnt convert {row}')
-                    print(' ', e)
+                    if not silence_errors:
+                        print(f'Row {row_no}: Couldnt convert {row}')
+                        print(' ', e)
 			# Convert to dict if has_headers
             if has_headers:
                 record = dict(zip(headers, row))
