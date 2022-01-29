@@ -2,9 +2,6 @@
 #
 # Exercise 1.27
 
-import csv
-import sys
-
 from report import read_portfolio
 
 def portfolio_cost(filename):
@@ -17,11 +14,10 @@ def portfolio_cost(filename):
         total_price += holding['shares'] * holding['price']
     return total_price
 
-
-if len(sys.argv) == 2:
-    filename = sys.argv[1]
-else:
-    filename = 'Data/portfolio.csv'
-
-cost = portfolio_cost(filename)
-print("Total cost:", cost)
+def main(argv):
+    if len(argv) == 2:
+        filename = argv[1]
+    else:
+        filename = 'Data/portfolio.csv'
+    cost = portfolio_cost(filename)
+    print("Total cost:", cost)
