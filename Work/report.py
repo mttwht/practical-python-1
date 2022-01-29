@@ -5,6 +5,8 @@
 import csv
 import sys
 
+from fileparse import parse_csv
+
 
 def get_filenames():
     '''
@@ -20,40 +22,19 @@ def read_portfolio(filename):
     '''
     Read a stock portfolio from a file
     '''
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        portfolio = []
-        for row_number, row in enumerate(rows, start=1):
-            record = dict(zip(headers, row))
-            try:
-                name = record['name']
-                shares = int(record['shares'])
-                price = float(record['price'])
-                holding = {
-                    'name': name,
-                    'shares': shares,
-                    'price': price
-				}
-                portfolio.append(holding)
-            except ValueError:
-                print(f"Error at row {row_number}; Could not convert values {row} to [str, int, float]")
+    portfolio = parse_csv(filename,
+                          select=['name', 'shares', 'price'],
+                          types=[str, int, float])
     return portfolio
 
 def read_prices(filename):
     '''
     Read stock prices from a file into a dictionary
     '''
-    with open(filename, 'rt') as f:
-        rows = csv.reader(f)
-        stocks = {}
-        for row in rows:
-            try:
-                name, price = row[0], float(row[1])
-                stocks[name] = price
-            except IndexError:
-                print("Not enough values in line:", row)
-    return stocks
+    stocks = parse_csv(filename,
+                       types=[str, float],
+                       has_headers=False)
+    return dict(stocks)
 
 def make_report(portfolio, prices):
     '''
