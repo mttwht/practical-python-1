@@ -10,17 +10,19 @@ def parse_csv(filename, select=[]):
     '''
     with open(filename) as f:
         rows = csv.reader(f)
-        
         headers = next(rows)
+        # Filter headers if 'select' is provided
+        if select:
+            indexes = [headers.index(s) for s in select]
+            headers = select
+            
         records = []
         for row in rows:
             if not row:
                 continue
-            record = dict(zip(headers, row))
-            
+            # Filter columns if 'select' is provided
             if select:
-                record = dict(zip(select, [record[s] for s in select]))
-            
+                row = [row[i] for i in indexes]
+            record = dict(zip(headers, row))
             records.append(record)
-    
     return records
