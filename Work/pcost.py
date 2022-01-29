@@ -15,9 +15,13 @@ def portfolio_cost(filename):
     return total_price
 
 def main(argv):
-    if len(argv) == 2:
-        filename = argv[1]
-    else:
-        filename = 'Data/portfolio.csv'
-    cost = portfolio_cost(filename)
+    if len(sys.argv) != 2:
+        raise SystemExit(f'Usage: {sys.argv[0]} ' 'portfile')
+    portfile = argv[1]
+    cost = portfolio_cost(portfile)
     print("Total cost:", cost)
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)

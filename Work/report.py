@@ -58,4 +58,13 @@ def portfolio_report(filename1, filename2):
     print_report(report)
 
 def main(argv):
-    portfolio_report(argv[1], argv[2])
+    if len(argv) != 3:
+        raise SystemExit(f'Usage: {argv[0]} portfile pricefile')
+    portfile = argv[1]
+    pricefile = argv[2]
+    portfolio_report(portfile, pricefile)
+
+
+if __name__ == '__main__':
+    import sys
+    main(sys.argv)
