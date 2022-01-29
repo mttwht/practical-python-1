@@ -22,7 +22,9 @@ def parse_csv(filename, select=[], types=[], has_headers=True, delimiter=','):
                 headers = select
             
         records = []
+        row_no = 0
         for row in rows:
+            row_no += 1
             if not row:
                 continue
             # Filter columns if 'select' is provided
@@ -30,7 +32,11 @@ def parse_csv(filename, select=[], types=[], has_headers=True, delimiter=','):
                 row = [row[i] for i in indexes]
             # Type convert if 'types' is provided
             if types:
-                row = [func(val) for func, val in zip(types, row)]
+                try:
+                    row = [func(val) for func, val in zip(types, row)]
+                except ValueError as e:
+                    print(f'Row {row_no}: Couldnt convert {row}')
+                    print(' ', e)
 			# Convert to dict if has_headers
             if has_headers:
                 record = dict(zip(headers, row))
