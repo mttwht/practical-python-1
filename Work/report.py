@@ -9,18 +9,20 @@ def read_portfolio(filename):
     '''
     Read a stock portfolio from a file
     '''
-    portfolio = parse_csv(filename,
-                          select=['name', 'shares', 'price'],
-                          types=[str, int, float])
+    with open(filename, 'rt') as file:
+        portfolio = parse_csv(file,
+                              select=['name', 'shares', 'price'],
+                              types=[str, int, float])
     return portfolio
 
 def read_prices(filename):
     '''
     Read stock prices from a file into a dictionary
     '''
-    stocks = parse_csv(filename,
-                       types=[str, float],
-                       has_headers=False)
+    with open(filename, 'rt') as file:
+        stocks = parse_csv(file,
+                           types=[str, float],
+                           has_headers=False)
     return dict(stocks)
 
 def make_report(portfolio, prices):
