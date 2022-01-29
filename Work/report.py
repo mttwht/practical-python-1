@@ -80,11 +80,15 @@ def print_report(report):
         price = f'${price:0.2f}'
         print(f'{name:>10s} {shares:>10d} {price:>10s} {change:>10.2f}')
 
+def portfolio_report(filename1, filename2):
+    '''
+    Prints a report generated from a portfolio and a current price file
+    '''
+    portfolio = read_portfolio(filename1)
+    prices = read_prices(filename2)
+    report = make_report(portfolio, prices)
+    print_report(report)
+
 
 filename1, filename2 = get_filenames()
-
-portfolio = read_portfolio(filename1)
-prices = read_prices(filename2)
-report = make_report(portfolio, prices)
-
-print_report(report)
+portfolio_report(filename1, filename2)
